@@ -1,13 +1,8 @@
-[package]
-name = "stm32h7-try"
-version = "0.1.0"
-authors = ["hustccc <1276675421@qq.com>"]
-edition = "2018"
+[workspace]
+members = [
+    "stm32h7-try",
+    "probe-debug"
+]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-cortex-m = "0.6.2"
-cortex-m-rt = "0.6.12"
-stm32h7xx-hal = {version = "0.8.0", features = ["stm32h743v","rt"]}
-panic-halt = "0.2.0"
+[profile.release]
+debug = true
