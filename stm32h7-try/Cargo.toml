@@ -12,3 +12,4 @@ cortex-m-rt = "0.6.12"
 stm32h7xx-hal = {version = "0.8.0", features = ["stm32h743v","rt"]}
 panic-halt = "0.2.0"
 alloc-cortex-m = "0.4.1"
+nb = "1.0.0"
