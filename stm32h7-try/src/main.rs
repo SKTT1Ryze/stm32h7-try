@@ -13,6 +13,7 @@ use spi::NoMiso;
 use stm32h7xx_hal::hal::digital::v2::OutputPin;
 use stm32h7xx_hal::{pac, prelude::*, spi};
 use embedded_graphics::{mono_font::{MonoTextStyle, ascii::Font10x20}, pixelcolor::BinaryColor, prelude::*, text::Text};
+use embedded_graphics::primitives::{Circle, Rectangle, Triangle, PrimitiveStyle};
 use epd_waveshare::{
     epd2in13_v2::{Display2in13, EPD2in13},
     graphics::{Display, DisplayRotation},
@@ -142,9 +143,42 @@ fn main() -> ! {
     
     display.set_rotation(DisplayRotation::Rotate90);
     
+    // Create styles used by the drawing operations.
+    let thin_stroke = PrimitiveStyle::with_stroke(BinaryColor::On, 1);
+    let thick_stroke = PrimitiveStyle::with_stroke(BinaryColor::On, 3);
+    let fill = PrimitiveStyle::with_fill(BinaryColor::On);
     let text_style = MonoTextStyle::new(Font10x20, BinaryColor::On);
+    let display_size = display.size() - Size::new(1, 1);
+    let yoffset = 10;
+    
+    // Draw a 3px wide outline around the display.
+    Rectangle::new(Point::zero(), display_size)
+        .into_styled(thick_stroke)
+        .draw(&mut display).unwrap();
+    
+    // Draw a triangle.
+    Triangle::new(
+        Point::new(16, 16 + yoffset),
+        Point::new(16 + 16, 16 + yoffset),
+        Point::new(16 + 8, 16 + yoffset),
+    )
+    .into_styled(thin_stroke)
+    .draw(&mut display).unwrap();
+
+    // Draw a filled square
+    Rectangle::new(Point::new(52, yoffset), Size::new(16, 16))
+        .into_styled(fill)
+        .draw(&mut display).unwrap();
+    
+    // Draw a circle with a 3px wide stroke.
+    Circle::new(Point::new(88, yoffset), 17)
+        .into_styled(thick_stroke)
+        .draw(&mut display).unwrap();
+    
+    let text = "Hello World from Rust";
+    let width = text.len() as i32 * 6;
     // Draw some text
-    Text::new("Hello World from Rust!", Point::new(20, 20))
+    Text::new(text, Point::new(64 - width / 2, 40))
         .into_styled(text_style)
         .draw(&mut display).unwrap();
         
