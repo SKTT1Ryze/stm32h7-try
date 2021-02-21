@@ -12,13 +12,8 @@ use panic_halt as _;
 use spi::NoMiso;
 use stm32h7xx_hal::hal::digital::v2::OutputPin;
 use stm32h7xx_hal::{pac, prelude::*, spi};
-use embedded_graphics::{
-    fonts::{Font12x16, Text},
-    prelude::*,
-    text_style,
-};
+use embedded_graphics::{mono_font::{MonoTextStyle, ascii::Font10x20}, pixelcolor::BinaryColor, prelude::*, text::Text};
 use epd_waveshare::{
-    color::*,
     epd2in13_v2::{Display2in13, EPD2in13},
     graphics::{Display, DisplayRotation},
     prelude::*,
@@ -146,14 +141,11 @@ fn main() -> ! {
     let mut display = Display2in13::default();
     
     display.set_rotation(DisplayRotation::Rotate90);
-
+    
+    let text_style = MonoTextStyle::new(Font10x20, BinaryColor::On);
     // Draw some text
-    Text::new("Hello from Rust!", Point::new(1, 1))
-        .into_styled(text_style!(
-            font = Font12x16,
-            text_color = Black,
-            background_color = White
-        ))
+    Text::new("Hello World from Rust!", Point::new(20, 20))
+        .into_styled(text_style)
         .draw(&mut display).unwrap();
         
     // Transfer the frame data to the epd and display it
