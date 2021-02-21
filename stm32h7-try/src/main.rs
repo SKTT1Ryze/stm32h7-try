@@ -14,11 +14,15 @@ use stm32h7xx_hal::hal::digital::v2::OutputPin;
 use stm32h7xx_hal::{pac, prelude::*, spi};
 use embedded_graphics::{mono_font::{MonoTextStyle, ascii::Font10x20}, pixelcolor::BinaryColor, prelude::*, text::Text};
 use embedded_graphics::primitives::{Circle, Rectangle, Triangle, PrimitiveStyle};
+#[allow(unused_imports)]
+use embedded_graphics::image::Image;
 use epd_waveshare::{
     epd2in13_v2::{Display2in13, EPD2in13},
     graphics::{Display, DisplayRotation},
     prelude::*,
 };
+#[allow(unused_imports)]
+use tinybmp::Bmp;
 
 // use epd_waveshare::{
 //     color::*,
@@ -181,12 +185,25 @@ fn main() -> ! {
     Text::new(text, Point::new(64 - width / 2, 40))
         .into_styled(text_style)
         .draw(&mut display).unwrap();
-        
+    
     // Transfer the frame data to the epd and display it
     epd.update_frame(&mut spi, &display.buffer()).unwrap();
     epd.display_frame(&mut spi).unwrap();
     epd.sleep(&mut spi).unwrap();
     
+    // delay.delay_ms(1000_u16);
+
+    // display.clear_buffer(epd_waveshare::color::Color::White);
+
+    // let bmp_data = include_bytes!("../RISC-V-Workshop-logo.bmp");
+    // let bmp = Bmp::<BinaryColor>::from_slice(bmp_data).unwrap();
+    // Image::new(&bmp, Point::new(10, 20)).draw(&mut display).unwrap();
+
+    // Transfer the frame data to the epd and display it
+    // epd.update_frame(&mut spi, &display.buffer()).unwrap();
+    // epd.display_frame(&mut spi).unwrap();
+    // epd.sleep(&mut spi).unwrap();
+
     loop {
         led_0.set_high().unwrap();
         delay.delay_ms(500_u16);

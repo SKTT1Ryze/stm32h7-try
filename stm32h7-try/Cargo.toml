@@ -13,7 +13,8 @@ stm32h7xx-hal = {version = "0.8.0", features = ["stm32h743v","rt"]}
 panic-halt = "0.2.0"
 alloc-cortex-m = "0.4.1"
 nb = "1.0.0"
-# epd-waveshare = { path = "/home/hustccc/epd-waveshare" }
-epd-waveshare = { git = "https://github.com/SKTT1Ryze/epd-waveshare.git", branch = "main" }
+epd-waveshare = { path = "/home/hustccc/epd-waveshare" }
+# epd-waveshare = { git = "https://github.com/SKTT1Ryze/epd-waveshare.git", branch = "main" }
 # embedded-graphics = { path = "/home/hustccc/embedded-graphics" }
 embedded-graphics = { git = "https://github.com/SKTT1Ryze/embedded-graphics.git", branch = "sktt1ryze" }
+tinybmp = { git = "https://github.com/SKTT1Ryze/tinybmp.git", branch = "sktt1ryze" }
