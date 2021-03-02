@@ -201,7 +201,8 @@ fn main() -> ! {
 
     let data = include_bytes!("../rust.raw");
     let raw: ImageRaw<BinaryColor> = ImageRaw::new(data, 64, 64);
-    let image = Image::new(&raw, Point::new(10, 10));
+
+    let image = Image::new(&raw, Point::new(100, 30));
     image.draw(&mut display).unwrap();
 
     // Transfer the frame data to the epd and display it
